@@ -58,19 +58,7 @@ Images were resized to **100×75×3** to maintain visual quality while optimizin
   - **Test Accuracy:** 65.9%
   - Good performance on dominant classes (e.g., Melanocytic nevi)
   - Low recall on minority classes due to class imbalance
-
----
-
-## 🖼️ Visualization Examples
-
-| Class                  | Sample |
-|------------------------|--------|
-| Melanoma               | *(sample image)* |
-| Benign keratosis       | *(sample image)* |
-| Melanocytic nevi       | *(sample image)* |
-
-*(Add representative samples when possible.)*
-
+    
 ---
 
 ## ⚙️ Dependencies
