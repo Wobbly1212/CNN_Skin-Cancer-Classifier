@@ -1,125 +1,105 @@
+# Skin Lesion Classification Using CNN
 
-# 🧬 Skin Lesion Classification Using CNN
+A complete deep learning pipeline for **multi-class classification of skin cancer lesions** using Convolutional Neural Networks (CNNs). Includes data preprocessing, model building, training, evaluation, and interpretation — designed for transparency and reproducibility.
 
-This project presents a complete deep learning pipeline for **multi-class classification of skin cancer lesions** using Convolutional Neural Networks (CNNs). It includes data preprocessing, model building, training, evaluation, and interpretation — all designed for high transparency and reproducibility.
+## Dataset
 
----
+The [HAM10000](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T) dataset contains 10,015 dermatoscopic images classified into 7 categories:
 
-## 📁 Dataset
+| Class | Description |
+|-------|-------------|
+| nv | Melanocytic nevi |
+| mel | Melanoma |
+| bkl | Benign keratosis-like lesions |
+| bcc | Basal cell carcinoma |
+| akiec | Actinic keratoses |
+| vasc | Vascular lesions |
+| df | Dermatofibroma |
 
-We used the **HAM10000** dataset, which contains 10,015 dermatoscopic images classified into 7 categories:
+Images were resized to **100 x 75 x 3** to maintain visual quality while optimizing training speed.
 
-1. Melanocytic nevi
-2. Melanoma
-3. Benign keratosis-like lesions
-4. Basal cell carcinoma
-5. Actinic keratoses
-6. Vascular lesions
-7. Dermatofibroma
+## Results
 
-Images were resized to **100×75×3** to maintain visual quality while optimizing for training speed.
+| Metric | Value |
+|--------|-------|
+| Validation Accuracy | 77.7% |
+| Test Accuracy | 65.9% |
+| Best Class Precision | 0.79 (Melanocytic nevi) |
+| Lowest Class Recall | 0.00 (rare classes) |
 
----
+## Pipeline Overview
 
-## 🧪 Project Pipeline Overview
+1. **Data Loading & Preprocessing** — Metadata merged with image paths, images resized, labels one-hot encoded, data split into train/val/test
+2. **Exploratory Data Analysis** — Class distribution plotted, imbalance identified
+3. **CNN Model Construction** — Sequential model with two convolutional blocks, dropout regularization, data augmentation via `ImageDataGenerator`
+4. **Training** — 50 epochs with Adam optimizer and `ReduceLROnPlateau` callback
+5. **Evaluation** — Confusion matrices, classification reports, learning curves
 
-### ✅ Step 1: Data Loading & Preprocessing
-- Metadata loaded and merged with image paths
-- Images resized
-- Target labels encoded as integers and one-hot vectors
-- Dataset split into train, validation, and test sets
+## Getting Started
 
-### 🏷️ Step 2: Label Encoding
-- One-hot encoding using `to_categorical` for multi-class classification
+### Prerequisites
 
-### 📊 Step 3: Exploratory Data Analysis
-- Class distribution plotted
-- Class imbalance observed, especially for rare lesions
+- Python 3.12+
+- pip
 
-### 🧠 Step 4–6: CNN Model Construction
-- Sequential CNN model with two convolutional blocks and fully connected layers
-- Dropout for regularization
-- Data augmentation using `ImageDataGenerator`
-- Optimized using Adam with `ReduceLROnPlateau` callback
+### Installation
 
-### 📈 Step 7: Training the Model
-- Trained for 50 epochs
-- Tracked training/validation accuracy and loss
-- Plotted learning curves to assess performance
-
-### 🧪 Step 8: Model Evaluation
-- Evaluated on test and validation sets
-- Confusion matrices and classification reports generated
-- Performance metrics interpreted by class
-
-### 📉 Step 9: Quantitative Performance Summary
-- Final performance:
-  - **Validation Accuracy:** 77.7%
-  - **Test Accuracy:** 65.9%
-  - Good performance on dominant classes (e.g., Melanocytic nevi)
-  - Low recall on minority classes due to class imbalance
-    
----
-
-## ⚙️ Dependencies
-
-- Python 3.12
-- TensorFlow / Keras
-- scikit-learn
-- NumPy, Pandas, Seaborn, Matplotlib
-- PIL (Python Imaging Library)
-
-Install dependencies:
 ```bash
+# Clone the repository
+git clone https://github.com/Wobbly1212/CNN_Skin-Cancer-Classifier.git
+cd CNN_Skin-Cancer-Classifier
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
----
+### Data Setup
 
-## 💾 Model Saving
+1. Download the [HAM10000 dataset](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DBW86T)
+2. Place the images and metadata CSV in a `data/HAM10000/` directory
+3. Update the data path in the notebook if needed
 
-Model saved using:
-```python
-model.save("model.h5")  # HDF5 format (legacy)
+### Running the Notebook
+
+```bash
+jupyter notebook skin_cancer_project.ipynb
 ```
-Recommended format:
-```python
-model.save("model.keras")  # Native Keras format
+
+## Project Structure
+
+```
+CNN_Skin-Cancer-Classifier/
+├── skin_cancer_project.ipynb   # Main analysis notebook
+├── skin_cancer_project.pdf     # Full written report
+├── requirements.txt            # Python dependencies
+├── LICENSE
+└── README.md
 ```
 
----
+## Dependencies
 
-## 🔍 Limitations & Future Work
+- TensorFlow / Keras
+- scikit-learn
+- NumPy, Pandas
+- Seaborn, Matplotlib
+- Pillow
 
-- Low recall on rare classes like melanoma and dermatofibroma
-- Imbalanced dataset heavily skews predictions toward dominant class
+## Limitations & Future Work
+
+- Low recall on rare classes (melanoma, dermatofibroma) due to class imbalance
 - Future improvements:
-  - Apply transfer learning (e.g., EfficientNet, ResNet)
-  - Use focal loss or class weighting
-  - Apply oversampling or SMOTE techniques
+  - Transfer learning (EfficientNet, ResNet)
+  - Focal loss or class weighting
+  - Oversampling / SMOTE techniques
 
----
+## Author
 
-## 📄 Final Performance Metrics
+Developed by **Diako Darabi** as part of the Data Science Master's Program.
 
-| Metric                | Value      |
-|-----------------------|------------|
-| Validation Accuracy   | 77.7%      |
-| Test Accuracy         | 65.9%      |
-| Best Class Precision  | 0.79 (Melanocytic nevi) |
-| Lowest Class Recall   | 0.00 (for rare classes) |
+## License
 
----
-
-## 📘 PDF Report
-
-A full report with methodology, code breakdown, and performance analysis is included:  
-📎 [`skin_cancer_project.pdf`](skin_cancer_project.pdf)
-
----
-
-## 👨‍💻 Author
-
-Developed by **[Mohammadhossein Darabi]**  
-As part of the Data Science Master's Program  
-⭐️ Star this repo if you found it helpful!
+This project is licensed under the [MIT License](LICENSE).
